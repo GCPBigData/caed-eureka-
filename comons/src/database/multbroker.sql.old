@@ -1,0 +1,772 @@
+/*
+ Navicat PostgreSQL Data Transfer
+
+ Source Server         : multbroker
+ Source Server Type    : PostgreSQL
+ Source Server Version : 100012
+ Source Host           : localhost:5432
+ Source Catalog        : multbroker
+ Source Schema         : multbroker
+
+ Target Server Type    : PostgreSQL
+ Target Server Version : 100012
+ File Encoding         : 65001
+
+ Date: 11/03/2020 23:58:10
+*/
+
+
+-- ----------------------------
+-- Sequence structure for persistent_audit_event_event_id_seq
+-- ----------------------------
+DROP SEQUENCE IF EXISTS "multbroker"."persistent_audit_event_event_id_seq";
+CREATE SEQUENCE "multbroker"."persistent_audit_event_event_id_seq" 
+INCREMENT 1
+MINVALUE  1
+MAXVALUE 9223372036854775807
+START 1
+CACHE 1;
+
+-- ----------------------------
+-- Sequence structure for sequence_generator
+-- ----------------------------
+DROP SEQUENCE IF EXISTS "multbroker"."sequence_generator";
+CREATE SEQUENCE "multbroker"."sequence_generator" 
+INCREMENT 50
+MINVALUE  1
+MAXVALUE 9223372036854775807
+START 1
+CACHE 1;
+
+-- ----------------------------
+-- Sequence structure for users_id_seq
+-- ----------------------------
+DROP SEQUENCE IF EXISTS "multbroker"."users_id_seq";
+CREATE SEQUENCE "multbroker"."users_id_seq" 
+INCREMENT 1
+MINVALUE  1
+MAXVALUE 9223372036854775807
+START 1
+CACHE 1;
+
+-- ----------------------------
+-- Table structure for app_preference
+-- ----------------------------
+DROP TABLE IF EXISTS "multbroker"."app_preference";
+CREATE TABLE "multbroker"."app_preference" (
+  "id" int8 NOT NULL,
+  "key" varchar(255) COLLATE "pg_catalog"."default" NOT NULL,
+  "value" text COLLATE "pg_catalog"."default",
+  "userentity_id" int8 NOT NULL
+)
+;
+
+-- ----------------------------
+-- Records of app_preference
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for authority
+-- ----------------------------
+DROP TABLE IF EXISTS "multbroker"."authority";
+CREATE TABLE "multbroker"."authority" (
+  "name" varchar(50) COLLATE "pg_catalog"."default" NOT NULL
+)
+;
+
+-- ----------------------------
+-- Records of authority
+-- ----------------------------
+INSERT INTO "multbroker"."authority" VALUES ('ROLE_ADMIN');
+INSERT INTO "multbroker"."authority" VALUES ('ROLE_USER');
+
+-- ----------------------------
+-- Table structure for brokerage
+-- ----------------------------
+DROP TABLE IF EXISTS "multbroker"."brokerage";
+CREATE TABLE "multbroker"."brokerage" (
+  "id" int8 NOT NULL,
+  "address" varchar(100) COLLATE "pg_catalog"."default",
+  "address_city" varchar(100) COLLATE "pg_catalog"."default",
+  "address_neighborhood" varchar(100) COLLATE "pg_catalog"."default",
+  "address_state" varchar(50) COLLATE "pg_catalog"."default",
+  "cnpj" varchar(18) COLLATE "pg_catalog"."default",
+  "day_trade" bool NOT NULL,
+  "email" varchar(100) COLLATE "pg_catalog"."default",
+  "fee" numeric(10,2) NOT NULL,
+  "iss" numeric(10,2),
+  "login_access_code" bool NOT NULL,
+  "login_cpf" bool NOT NULL,
+  "login_email" bool NOT NULL,
+  "login_password" bool NOT NULL,
+  "login_token" bool NOT NULL,
+  "logo" varchar(50) COLLATE "pg_catalog"."default",
+  "name" varchar(100) COLLATE "pg_catalog"."default" NOT NULL,
+  "phone" varchar(50) COLLATE "pg_catalog"."default",
+  "swing_trade" bool NOT NULL,
+  "website" varchar(100) COLLATE "pg_catalog"."default"
+)
+;
+
+-- ----------------------------
+-- Records of brokerage
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for brokerage_account
+-- ----------------------------
+DROP TABLE IF EXISTS "multbroker"."brokerage_account";
+CREATE TABLE "multbroker"."brokerage_account" (
+  "id" int8 NOT NULL,
+  "balance" numeric(10,2),
+  "fee" numeric(10,2),
+  "login_access_code" varchar(300) COLLATE "pg_catalog"."default",
+  "login_cpf" varchar(11) COLLATE "pg_catalog"."default",
+  "login_email" varchar(200) COLLATE "pg_catalog"."default",
+  "login_password" varchar(100) COLLATE "pg_catalog"."default",
+  "brokerage_id" int8 NOT NULL,
+  "userentity_id" int8 NOT NULL
+)
+;
+
+-- ----------------------------
+-- Records of brokerage_account
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for brokerage_assistance
+-- ----------------------------
+DROP TABLE IF EXISTS "multbroker"."brokerage_assistance";
+CREATE TABLE "multbroker"."brokerage_assistance" (
+  "id" int8 NOT NULL,
+  "name" varchar(255) COLLATE "pg_catalog"."default" NOT NULL
+)
+;
+
+-- ----------------------------
+-- Records of brokerage_assistance
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for brokerage_brokerage_assistance
+-- ----------------------------
+DROP TABLE IF EXISTS "multbroker"."brokerage_brokerage_assistance";
+CREATE TABLE "multbroker"."brokerage_brokerage_assistance" (
+  "brokerages_id" int8 NOT NULL,
+  "brokerage_assistances_id" int8 NOT NULL
+)
+;
+
+-- ----------------------------
+-- Records of brokerage_brokerage_assistance
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for brokerage_brokerage_client
+-- ----------------------------
+DROP TABLE IF EXISTS "multbroker"."brokerage_brokerage_client";
+CREATE TABLE "multbroker"."brokerage_brokerage_client" (
+  "brokerages_id" int8 NOT NULL,
+  "brokerage_clients_id" int8 NOT NULL
+)
+;
+
+-- ----------------------------
+-- Records of brokerage_brokerage_client
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for brokerage_brokerage_product
+-- ----------------------------
+DROP TABLE IF EXISTS "multbroker"."brokerage_brokerage_product";
+CREATE TABLE "multbroker"."brokerage_brokerage_product" (
+  "brokerages_id" int8 NOT NULL,
+  "brokerage_products_id" int8 NOT NULL
+)
+;
+
+-- ----------------------------
+-- Records of brokerage_brokerage_product
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for brokerage_client
+-- ----------------------------
+DROP TABLE IF EXISTS "multbroker"."brokerage_client";
+CREATE TABLE "multbroker"."brokerage_client" (
+  "id" int8 NOT NULL,
+  "name" varchar(255) COLLATE "pg_catalog"."default" NOT NULL
+)
+;
+
+-- ----------------------------
+-- Records of brokerage_client
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for brokerage_flow
+-- ----------------------------
+DROP TABLE IF EXISTS "multbroker"."brokerage_flow";
+CREATE TABLE "multbroker"."brokerage_flow" (
+  "id" int8 NOT NULL,
+  "amount" numeric(10,2) NOT NULL,
+  "created_at" timestamp(6),
+  "flow_date" timestamp(6) NOT NULL,
+  "manual_entry" bool NOT NULL,
+  "brokerage_account_id" int8,
+  "trade_id" int8,
+  "userentity_id" int8 NOT NULL
+)
+;
+
+-- ----------------------------
+-- Records of brokerage_flow
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for brokerage_product
+-- ----------------------------
+DROP TABLE IF EXISTS "multbroker"."brokerage_product";
+CREATE TABLE "multbroker"."brokerage_product" (
+  "id" int8 NOT NULL,
+  "name" varchar(255) COLLATE "pg_catalog"."default" NOT NULL
+)
+;
+
+-- ----------------------------
+-- Records of brokerage_product
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for chat_message
+-- ----------------------------
+DROP TABLE IF EXISTS "multbroker"."chat_message";
+CREATE TABLE "multbroker"."chat_message" (
+  "id" int8 NOT NULL,
+  "created_at" timestamp(6),
+  "message" text COLLATE "pg_catalog"."default" NOT NULL,
+  "userentity_id" int8 NOT NULL
+)
+;
+
+-- ----------------------------
+-- Records of chat_message
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for exec_report
+-- ----------------------------
+DROP TABLE IF EXISTS "multbroker"."exec_report";
+CREATE TABLE "multbroker"."exec_report" (
+  "id" int8 NOT NULL,
+  "avg_px" numeric(10,2),
+  "created_at" timestamp(6) NOT NULL,
+  "cum_qty" int8,
+  "exec_id" text COLLATE "pg_catalog"."default" NOT NULL,
+  "exec_text" text COLLATE "pg_catalog"."default",
+  "exec_type" varchar(255) COLLATE "pg_catalog"."default" NOT NULL,
+  "fix_message" text COLLATE "pg_catalog"."default",
+  "last_px" numeric(10,2),
+  "last_qty" int8,
+  "leaves_qty" int8,
+  "ord_rej_reason" int4,
+  "ord_status" varchar(255) COLLATE "pg_catalog"."default" NOT NULL,
+  "transact_time" timestamp(6) NOT NULL,
+  "order_id" int8 NOT NULL
+)
+;
+
+-- ----------------------------
+-- Records of exec_report
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for market_sector
+-- ----------------------------
+DROP TABLE IF EXISTS "multbroker"."market_sector";
+CREATE TABLE "multbroker"."market_sector" (
+  "id" int8 NOT NULL,
+  "name" varchar(100) COLLATE "pg_catalog"."default" NOT NULL
+)
+;
+
+-- ----------------------------
+-- Records of market_sector
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for persistent_audit_event
+-- ----------------------------
+DROP TABLE IF EXISTS "multbroker"."persistent_audit_event";
+CREATE TABLE "multbroker"."persistent_audit_event" (
+  "event_id" int8 NOT NULL DEFAULT nextval('"multbroker".persistent_audit_event_event_id_seq'::regclass),
+  "event_date" timestamp(6),
+  "event_type" varchar(255) COLLATE "pg_catalog"."default",
+  "principal" varchar(255) COLLATE "pg_catalog"."default" NOT NULL
+)
+;
+
+-- ----------------------------
+-- Records of persistent_audit_event
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for persistent_audit_evt_data
+-- ----------------------------
+DROP TABLE IF EXISTS "multbroker"."persistent_audit_evt_data";
+CREATE TABLE "multbroker"."persistent_audit_evt_data" (
+  "event_id" int8 NOT NULL,
+  "value" varchar(255) COLLATE "pg_catalog"."default",
+  "name" varchar(255) COLLATE "pg_catalog"."default" NOT NULL
+)
+;
+
+-- ----------------------------
+-- Records of persistent_audit_evt_data
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for stock
+-- ----------------------------
+DROP TABLE IF EXISTS "multbroker"."stock";
+CREATE TABLE "multbroker"."stock" (
+  "id" int8 NOT NULL,
+  "bdr" varchar(30) COLLATE "pg_catalog"."default" NOT NULL,
+  "cnpj" varchar(18) COLLATE "pg_catalog"."default",
+  "company" varchar(200) COLLATE "pg_catalog"."default" NOT NULL,
+  "enabled" bool NOT NULL,
+  "main_activity" varchar(300) COLLATE "pg_catalog"."default",
+  "market_sector" varchar(200) COLLATE "pg_catalog"."default",
+  "symbol" varchar(100) COLLATE "pg_catalog"."default" NOT NULL,
+  "website" varchar(100) COLLATE "pg_catalog"."default",
+  "market_sector_id" int8 NOT NULL
+)
+;
+
+-- ----------------------------
+-- Records of stock
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for stock_balance
+-- ----------------------------
+DROP TABLE IF EXISTS "multbroker"."stock_balance";
+CREATE TABLE "multbroker"."stock_balance" (
+  "id" int8 NOT NULL,
+  "balance" numeric(10,2) NOT NULL,
+  "created_at" timestamp(6),
+  "day" date NOT NULL,
+  "symbol" varchar(8) COLLATE "pg_catalog"."default" NOT NULL,
+  "last_flow_entry_id" int8,
+  "stock_id" int8 NOT NULL,
+  "userentity_id" int8 NOT NULL
+)
+;
+
+-- ----------------------------
+-- Records of stock_balance
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for stock_flow
+-- ----------------------------
+DROP TABLE IF EXISTS "multbroker"."stock_flow";
+CREATE TABLE "multbroker"."stock_flow" (
+  "id" int8 NOT NULL,
+  "created_at" timestamp(6),
+  "flow_date" timestamp(6) NOT NULL,
+  "manual_entry" bool NOT NULL,
+  "quantity" int8 NOT NULL,
+  "side" varchar(1) COLLATE "pg_catalog"."default" NOT NULL,
+  "symbol" varchar(8) COLLATE "pg_catalog"."default" NOT NULL,
+  "total_price" numeric(10,2) NOT NULL,
+  "unit_price" numeric(10,2) NOT NULL,
+  "brokerage_account_id" int8,
+  "exec_report_id" int8,
+  "stock_id" int8,
+  "trade_id" int8,
+  "userentity_id" int8 NOT NULL
+)
+;
+
+-- ----------------------------
+-- Records of stock_flow
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for stock_order
+-- ----------------------------
+DROP TABLE IF EXISTS "multbroker"."stock_order";
+CREATE TABLE "multbroker"."stock_order" (
+  "id" int8 NOT NULL,
+  "average_price" numeric(10,2),
+  "created_at" timestamp(6),
+  "created_by_ip" varchar(45) COLLATE "pg_catalog"."default",
+  "day_seq" int8,
+  "exec_quantity" int8,
+  "expire_time" timestamp(6),
+  "kind" varchar(10) COLLATE "pg_catalog"."default" NOT NULL,
+  "oms_order_id" varchar(255) COLLATE "pg_catalog"."default",
+  "operation_type" varchar(1) COLLATE "pg_catalog"."default",
+  "order_type" varchar(255) COLLATE "pg_catalog"."default",
+  "quantity" int8 NOT NULL,
+  "side" varchar(1) COLLATE "pg_catalog"."default" NOT NULL,
+  "status" varchar(255) COLLATE "pg_catalog"."default" NOT NULL,
+  "stop_price" numeric(10,2),
+  "time_in_force" varchar(1) COLLATE "pg_catalog"."default",
+  "total_price" numeric(10,2),
+  "unit_price" numeric(10,2) NOT NULL,
+  "brokerage_account_id" int8,
+  "created_by_id" int8 NOT NULL,
+  "stock_id" int8,
+  "trade_id" int8 NOT NULL
+)
+;
+
+-- ----------------------------
+-- Records of stock_order
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for stock_trade
+-- ----------------------------
+DROP TABLE IF EXISTS "multbroker"."stock_trade";
+CREATE TABLE "multbroker"."stock_trade" (
+  "id" int8 NOT NULL,
+  "average_price" numeric(10,2),
+  "created_at" timestamp(6),
+  "created_by_ip" varchar(45) COLLATE "pg_catalog"."default",
+  "exec_quantity" int8,
+  "expire_time" timestamp(6),
+  "fee_brokerage" numeric(10,2),
+  "fee_brokerage_iss" numeric(10,2),
+  "fee_irrf" numeric(10,2),
+  "fee_liquidation" numeric(10,2),
+  "fee_negotiation" numeric(10,2),
+  "fee_registry" numeric(10,2),
+  "kind" varchar(10) COLLATE "pg_catalog"."default" NOT NULL,
+  "last_exec_report_descr" varchar(255) COLLATE "pg_catalog"."default",
+  "last_exec_report_time" timestamp(6),
+  "manual_entry" bool NOT NULL,
+  "market" varchar(1) COLLATE "pg_catalog"."default" NOT NULL,
+  "quantity" int8 NOT NULL,
+  "side" varchar(1) COLLATE "pg_catalog"."default" NOT NULL,
+  "status" varchar(255) COLLATE "pg_catalog"."default" NOT NULL,
+  "stop_price" numeric(10,2),
+  "total_price" numeric(10,2) NOT NULL,
+  "total_price_actual" numeric(10,2) NOT NULL,
+  "trade_date" timestamp(6) NOT NULL,
+  "unit_price" numeric(10,2) NOT NULL,
+  "brokerage_account_id" int8,
+  "created_by_id" int8 NOT NULL,
+  "main_order_id" int8,
+  "stock_id" int8
+)
+;
+
+-- ----------------------------
+-- Records of stock_trade
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for stock_watch
+-- ----------------------------
+DROP TABLE IF EXISTS "multbroker"."stock_watch";
+CREATE TABLE "multbroker"."stock_watch" (
+  "id" int8 NOT NULL,
+  "stock_id" int8 NOT NULL,
+  "userentity_id" int8 NOT NULL
+)
+;
+
+-- ----------------------------
+-- Records of stock_watch
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for users
+-- ----------------------------
+DROP TABLE IF EXISTS "multbroker"."users";
+CREATE TABLE "multbroker"."users" (
+  "id" int8 NOT NULL DEFAULT nextval('"multbroker".users_id_seq'::regclass),
+  "activated" bool NOT NULL,
+  "activation_key" varchar(20) COLLATE "pg_catalog"."default",
+  "cpf" varchar(11) COLLATE "pg_catalog"."default",
+  "email" varchar(254) COLLATE "pg_catalog"."default",
+  "password_hash" varchar(60) COLLATE "pg_catalog"."default" NOT NULL,
+  "image_url" varchar(256) COLLATE "pg_catalog"."default",
+  "lang_key" varchar(6) COLLATE "pg_catalog"."default",
+  "nome_completo" varchar(50) COLLATE "pg_catalog"."default",
+  "reset_date" timestamp(6),
+  "reset_key" varchar(20) COLLATE "pg_catalog"."default"
+)
+;
+
+-- ----------------------------
+-- Records of users
+-- ----------------------------
+INSERT INTO "multbroker"."users" VALUES (1, 't', 'true', '35371554840', 'luis.granado@hotmail.com', '$2a$10$mD0RSmDxBnWv2POUMHPFMeuml4aZqbAScF2twUUCC6pVG2OETG.hS', NULL, NULL, 'Luis Granado', NULL, NULL);
+
+-- ----------------------------
+-- Alter sequences owned by
+-- ----------------------------
+ALTER SEQUENCE "multbroker"."persistent_audit_event_event_id_seq"
+OWNED BY "multbroker"."persistent_audit_event"."event_id";
+SELECT setval('"multbroker"."persistent_audit_event_event_id_seq"', 2, false);
+
+-- ----------------------------
+-- Alter sequences owned by
+-- ----------------------------
+SELECT setval('"multbroker"."sequence_generator"', 51, false);
+
+-- ----------------------------
+-- Alter sequences owned by
+-- ----------------------------
+ALTER SEQUENCE "multbroker"."users_id_seq"
+OWNED BY "multbroker"."users"."id";
+SELECT setval('"multbroker"."users_id_seq"', 2, false);
+
+-- ----------------------------
+-- Primary Key structure for table app_preference
+-- ----------------------------
+ALTER TABLE "multbroker"."app_preference" ADD CONSTRAINT "app_preference_pkey" PRIMARY KEY ("id");
+
+-- ----------------------------
+-- Primary Key structure for table authority
+-- ----------------------------
+ALTER TABLE "multbroker"."authority" ADD CONSTRAINT "authority_pkey" PRIMARY KEY ("name");
+
+-- ----------------------------
+-- Uniques structure for table brokerage
+-- ----------------------------
+ALTER TABLE "multbroker"."brokerage" ADD CONSTRAINT "uk_kjfg0gvnj98nfb0m38n3s2ug1" UNIQUE ("cnpj");
+
+-- ----------------------------
+-- Primary Key structure for table brokerage
+-- ----------------------------
+ALTER TABLE "multbroker"."brokerage" ADD CONSTRAINT "brokerage_pkey" PRIMARY KEY ("id");
+
+-- ----------------------------
+-- Primary Key structure for table brokerage_account
+-- ----------------------------
+ALTER TABLE "multbroker"."brokerage_account" ADD CONSTRAINT "brokerage_account_pkey" PRIMARY KEY ("id");
+
+-- ----------------------------
+-- Uniques structure for table brokerage_assistance
+-- ----------------------------
+ALTER TABLE "multbroker"."brokerage_assistance" ADD CONSTRAINT "uk_rphdifvcbmlcj369u7kkqapo7" UNIQUE ("name");
+
+-- ----------------------------
+-- Primary Key structure for table brokerage_assistance
+-- ----------------------------
+ALTER TABLE "multbroker"."brokerage_assistance" ADD CONSTRAINT "brokerage_assistance_pkey" PRIMARY KEY ("id");
+
+-- ----------------------------
+-- Primary Key structure for table brokerage_brokerage_assistance
+-- ----------------------------
+ALTER TABLE "multbroker"."brokerage_brokerage_assistance" ADD CONSTRAINT "brokerage_brokerage_assistance_pkey" PRIMARY KEY ("brokerages_id", "brokerage_assistances_id");
+
+-- ----------------------------
+-- Primary Key structure for table brokerage_brokerage_client
+-- ----------------------------
+ALTER TABLE "multbroker"."brokerage_brokerage_client" ADD CONSTRAINT "brokerage_brokerage_client_pkey" PRIMARY KEY ("brokerages_id", "brokerage_clients_id");
+
+-- ----------------------------
+-- Primary Key structure for table brokerage_brokerage_product
+-- ----------------------------
+ALTER TABLE "multbroker"."brokerage_brokerage_product" ADD CONSTRAINT "brokerage_brokerage_product_pkey" PRIMARY KEY ("brokerages_id", "brokerage_products_id");
+
+-- ----------------------------
+-- Uniques structure for table brokerage_client
+-- ----------------------------
+ALTER TABLE "multbroker"."brokerage_client" ADD CONSTRAINT "uk_ix2gmlx6yuth39ahhgvr7f7ts" UNIQUE ("name");
+
+-- ----------------------------
+-- Primary Key structure for table brokerage_client
+-- ----------------------------
+ALTER TABLE "multbroker"."brokerage_client" ADD CONSTRAINT "brokerage_client_pkey" PRIMARY KEY ("id");
+
+-- ----------------------------
+-- Primary Key structure for table brokerage_flow
+-- ----------------------------
+ALTER TABLE "multbroker"."brokerage_flow" ADD CONSTRAINT "brokerage_flow_pkey" PRIMARY KEY ("id");
+
+-- ----------------------------
+-- Uniques structure for table brokerage_product
+-- ----------------------------
+ALTER TABLE "multbroker"."brokerage_product" ADD CONSTRAINT "uk_k3jfpehfs38d55dwbinq7lk2y" UNIQUE ("name");
+
+-- ----------------------------
+-- Primary Key structure for table brokerage_product
+-- ----------------------------
+ALTER TABLE "multbroker"."brokerage_product" ADD CONSTRAINT "brokerage_product_pkey" PRIMARY KEY ("id");
+
+-- ----------------------------
+-- Primary Key structure for table chat_message
+-- ----------------------------
+ALTER TABLE "multbroker"."chat_message" ADD CONSTRAINT "chat_message_pkey" PRIMARY KEY ("id");
+
+-- ----------------------------
+-- Primary Key structure for table exec_report
+-- ----------------------------
+ALTER TABLE "multbroker"."exec_report" ADD CONSTRAINT "exec_report_pkey" PRIMARY KEY ("id");
+
+-- ----------------------------
+-- Primary Key structure for table market_sector
+-- ----------------------------
+ALTER TABLE "multbroker"."market_sector" ADD CONSTRAINT "market_sector_pkey" PRIMARY KEY ("id");
+
+-- ----------------------------
+-- Primary Key structure for table persistent_audit_event
+-- ----------------------------
+ALTER TABLE "multbroker"."persistent_audit_event" ADD CONSTRAINT "persistent_audit_event_pkey" PRIMARY KEY ("event_id");
+
+-- ----------------------------
+-- Primary Key structure for table persistent_audit_evt_data
+-- ----------------------------
+ALTER TABLE "multbroker"."persistent_audit_evt_data" ADD CONSTRAINT "persistent_audit_evt_data_pkey" PRIMARY KEY ("event_id", "name");
+
+-- ----------------------------
+-- Primary Key structure for table stock
+-- ----------------------------
+ALTER TABLE "multbroker"."stock" ADD CONSTRAINT "stock_pkey" PRIMARY KEY ("id");
+
+-- ----------------------------
+-- Primary Key structure for table stock_balance
+-- ----------------------------
+ALTER TABLE "multbroker"."stock_balance" ADD CONSTRAINT "stock_balance_pkey" PRIMARY KEY ("id");
+
+-- ----------------------------
+-- Primary Key structure for table stock_flow
+-- ----------------------------
+ALTER TABLE "multbroker"."stock_flow" ADD CONSTRAINT "stock_flow_pkey" PRIMARY KEY ("id");
+
+-- ----------------------------
+-- Checks structure for table stock_order
+-- ----------------------------
+ALTER TABLE "multbroker"."stock_order" ADD CONSTRAINT "stock_order_quantity_check" CHECK ((quantity >= 1));
+
+-- ----------------------------
+-- Primary Key structure for table stock_order
+-- ----------------------------
+ALTER TABLE "multbroker"."stock_order" ADD CONSTRAINT "stock_order_pkey" PRIMARY KEY ("id");
+
+-- ----------------------------
+-- Checks structure for table stock_trade
+-- ----------------------------
+ALTER TABLE "multbroker"."stock_trade" ADD CONSTRAINT "stock_trade_quantity_check" CHECK ((quantity >= 1));
+
+-- ----------------------------
+-- Primary Key structure for table stock_trade
+-- ----------------------------
+ALTER TABLE "multbroker"."stock_trade" ADD CONSTRAINT "stock_trade_pkey" PRIMARY KEY ("id");
+
+-- ----------------------------
+-- Primary Key structure for table stock_watch
+-- ----------------------------
+ALTER TABLE "multbroker"."stock_watch" ADD CONSTRAINT "stock_watch_pkey" PRIMARY KEY ("id");
+
+-- ----------------------------
+-- Uniques structure for table users
+-- ----------------------------
+ALTER TABLE "multbroker"."users" ADD CONSTRAINT "uk_7kqluf7wl0oxs7n90fpya03ss" UNIQUE ("cpf");
+ALTER TABLE "multbroker"."users" ADD CONSTRAINT "uk_6dotkott2kjsp8vw4d0m25fb7" UNIQUE ("email");
+
+-- ----------------------------
+-- Primary Key structure for table users
+-- ----------------------------
+ALTER TABLE "multbroker"."users" ADD CONSTRAINT "users_pkey" PRIMARY KEY ("id");
+
+-- ----------------------------
+-- Foreign Keys structure for table app_preference
+-- ----------------------------
+ALTER TABLE "multbroker"."app_preference" ADD CONSTRAINT "fk4dd8xgyo7ki1bvwpebukh44uc" FOREIGN KEY ("userentity_id") REFERENCES "multbroker"."users" ("id") ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- ----------------------------
+-- Foreign Keys structure for table brokerage_account
+-- ----------------------------
+ALTER TABLE "multbroker"."brokerage_account" ADD CONSTRAINT "fkfth0gb6m8h21f77pq480w08b6" FOREIGN KEY ("brokerage_id") REFERENCES "multbroker"."brokerage" ("id") ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE "multbroker"."brokerage_account" ADD CONSTRAINT "fklf2ltdsfr08qr317hdogpieso" FOREIGN KEY ("userentity_id") REFERENCES "multbroker"."users" ("id") ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- ----------------------------
+-- Foreign Keys structure for table brokerage_brokerage_assistance
+-- ----------------------------
+ALTER TABLE "multbroker"."brokerage_brokerage_assistance" ADD CONSTRAINT "fk57rtavuxcyx292rdwuodr9q8s" FOREIGN KEY ("brokerages_id") REFERENCES "multbroker"."brokerage" ("id") ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE "multbroker"."brokerage_brokerage_assistance" ADD CONSTRAINT "fkjv8srk2v7k550t8uyoine6f0d" FOREIGN KEY ("brokerage_assistances_id") REFERENCES "multbroker"."brokerage_assistance" ("id") ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- ----------------------------
+-- Foreign Keys structure for table brokerage_brokerage_client
+-- ----------------------------
+ALTER TABLE "multbroker"."brokerage_brokerage_client" ADD CONSTRAINT "fk6gt7le2fl55whaojgweu6ght" FOREIGN KEY ("brokerage_clients_id") REFERENCES "multbroker"."brokerage_client" ("id") ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE "multbroker"."brokerage_brokerage_client" ADD CONSTRAINT "fki1bhito18ra1nmtpp0h6oply7" FOREIGN KEY ("brokerages_id") REFERENCES "multbroker"."brokerage" ("id") ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- ----------------------------
+-- Foreign Keys structure for table brokerage_brokerage_product
+-- ----------------------------
+ALTER TABLE "multbroker"."brokerage_brokerage_product" ADD CONSTRAINT "fkhtc3m5x2yhc4affboy83lvxw" FOREIGN KEY ("brokerage_products_id") REFERENCES "multbroker"."brokerage_product" ("id") ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE "multbroker"."brokerage_brokerage_product" ADD CONSTRAINT "fkqs03bbw4hbpvndm10wvwe4xe5" FOREIGN KEY ("brokerages_id") REFERENCES "multbroker"."brokerage" ("id") ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- ----------------------------
+-- Foreign Keys structure for table brokerage_flow
+-- ----------------------------
+ALTER TABLE "multbroker"."brokerage_flow" ADD CONSTRAINT "fk7r9wkvp220eybdn6wv57qd8uy" FOREIGN KEY ("userentity_id") REFERENCES "multbroker"."users" ("id") ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE "multbroker"."brokerage_flow" ADD CONSTRAINT "fkbbvs7h3oxdoj7fde6lvbf2pn7" FOREIGN KEY ("brokerage_account_id") REFERENCES "multbroker"."brokerage_account" ("id") ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE "multbroker"."brokerage_flow" ADD CONSTRAINT "fkknpdx3kqcs9u1c4q9kyoyxbf2" FOREIGN KEY ("trade_id") REFERENCES "multbroker"."stock_trade" ("id") ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- ----------------------------
+-- Foreign Keys structure for table chat_message
+-- ----------------------------
+ALTER TABLE "multbroker"."chat_message" ADD CONSTRAINT "fk30m1q4qri8xt4w8yolmfjhie1" FOREIGN KEY ("userentity_id") REFERENCES "multbroker"."users" ("id") ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- ----------------------------
+-- Foreign Keys structure for table exec_report
+-- ----------------------------
+ALTER TABLE "multbroker"."exec_report" ADD CONSTRAINT "fk8j2r3ybqjam5l6swvj0afqrfm" FOREIGN KEY ("order_id") REFERENCES "multbroker"."stock_order" ("id") ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- ----------------------------
+-- Foreign Keys structure for table persistent_audit_evt_data
+-- ----------------------------
+ALTER TABLE "multbroker"."persistent_audit_evt_data" ADD CONSTRAINT "fk9ynvwlu7w4uqpjlxvk9kiscqs" FOREIGN KEY ("event_id") REFERENCES "multbroker"."persistent_audit_event" ("event_id") ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- ----------------------------
+-- Foreign Keys structure for table stock
+-- ----------------------------
+ALTER TABLE "multbroker"."stock" ADD CONSTRAINT "fkhg8j9j6tcb6sawg2doh7vmdyq" FOREIGN KEY ("market_sector_id") REFERENCES "multbroker"."market_sector" ("id") ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- ----------------------------
+-- Foreign Keys structure for table stock_balance
+-- ----------------------------
+ALTER TABLE "multbroker"."stock_balance" ADD CONSTRAINT "fke0vyiur4t17m97j9xjehdo4nv" FOREIGN KEY ("userentity_id") REFERENCES "multbroker"."users" ("id") ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE "multbroker"."stock_balance" ADD CONSTRAINT "fkh8e885o51v9kknhqa3hl7tbud" FOREIGN KEY ("stock_id") REFERENCES "multbroker"."stock" ("id") ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE "multbroker"."stock_balance" ADD CONSTRAINT "fks0v0t2a7kefs5cu7h1e8uox62" FOREIGN KEY ("last_flow_entry_id") REFERENCES "multbroker"."stock_flow" ("id") ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- ----------------------------
+-- Foreign Keys structure for table stock_flow
+-- ----------------------------
+ALTER TABLE "multbroker"."stock_flow" ADD CONSTRAINT "fk6iyi5s96hb65fhpl9qcoqxcv4" FOREIGN KEY ("trade_id") REFERENCES "multbroker"."stock_trade" ("id") ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE "multbroker"."stock_flow" ADD CONSTRAINT "fkc3lgibmv93r0hx30y6g70jaos" FOREIGN KEY ("userentity_id") REFERENCES "multbroker"."users" ("id") ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE "multbroker"."stock_flow" ADD CONSTRAINT "fkd1h3nykk0fyisa8v0y1oc0lu" FOREIGN KEY ("stock_id") REFERENCES "multbroker"."stock" ("id") ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE "multbroker"."stock_flow" ADD CONSTRAINT "fkgfj6ady1n8ua6w341tmkdlsnl" FOREIGN KEY ("exec_report_id") REFERENCES "multbroker"."exec_report" ("id") ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE "multbroker"."stock_flow" ADD CONSTRAINT "fkp6uva77m0qpxj6qd96120fgb5" FOREIGN KEY ("brokerage_account_id") REFERENCES "multbroker"."brokerage_account" ("id") ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- ----------------------------
+-- Foreign Keys structure for table stock_order
+-- ----------------------------
+ALTER TABLE "multbroker"."stock_order" ADD CONSTRAINT "fk2w2rq505x5td6vu0jlbwa7e5y" FOREIGN KEY ("created_by_id") REFERENCES "multbroker"."users" ("id") ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE "multbroker"."stock_order" ADD CONSTRAINT "fkf8lykipv29ewo2h4m532l6iam" FOREIGN KEY ("trade_id") REFERENCES "multbroker"."stock_trade" ("id") ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE "multbroker"."stock_order" ADD CONSTRAINT "fkhp0oox11j8ofia1umm3nm9m5q" FOREIGN KEY ("brokerage_account_id") REFERENCES "multbroker"."brokerage_account" ("id") ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE "multbroker"."stock_order" ADD CONSTRAINT "fktgw8rc8hvr8uqeq30g1h598w6" FOREIGN KEY ("stock_id") REFERENCES "multbroker"."stock" ("id") ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- ----------------------------
+-- Foreign Keys structure for table stock_trade
+-- ----------------------------
+ALTER TABLE "multbroker"."stock_trade" ADD CONSTRAINT "fk5y1a97u9r3kakgkn9ul2iyss1" FOREIGN KEY ("main_order_id") REFERENCES "multbroker"."stock_order" ("id") ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE "multbroker"."stock_trade" ADD CONSTRAINT "fkgn1e0x5so0q2arkqcypk6ecrj" FOREIGN KEY ("created_by_id") REFERENCES "multbroker"."users" ("id") ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE "multbroker"."stock_trade" ADD CONSTRAINT "fkn1b1flb3a7yte6kxphpkx5teq" FOREIGN KEY ("brokerage_account_id") REFERENCES "multbroker"."brokerage_account" ("id") ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE "multbroker"."stock_trade" ADD CONSTRAINT "fkn5hsuo5ecpjbrvtm07ygpd23x" FOREIGN KEY ("stock_id") REFERENCES "multbroker"."stock" ("id") ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- ----------------------------
+-- Foreign Keys structure for table stock_watch
+-- ----------------------------
+ALTER TABLE "multbroker"."stock_watch" ADD CONSTRAINT "fk8f1p2dqr5pq6jdwbhbut4bdlv" FOREIGN KEY ("stock_id") REFERENCES "multbroker"."stock" ("id") ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE "multbroker"."stock_watch" ADD CONSTRAINT "fkm4r0u3px1jliimgm8e6oa2gwc" FOREIGN KEY ("userentity_id") REFERENCES "multbroker"."users" ("id") ON DELETE NO ACTION ON UPDATE NO ACTION;
